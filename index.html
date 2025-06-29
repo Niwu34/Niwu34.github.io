@@ -317,11 +317,6 @@
             
             createSheep();
             
-            // Apply sleepy blur effect starting from 6th sheep
-            if (sheepCount >= 6) {
-                applySleepyEffect();
-            }
-            
             // Redirect to menu after 10 sheep
             if (sheepCount >= 10) {
                 setTimeout(() => {
@@ -333,14 +328,6 @@
             if (sheepCount % 10 === 0) {
                 showCelebration();
             }
-        }
-
-        function applySleepyEffect() {
-            const blurLevel = (sheepCount - 5) * 0.5; // Gradually increase blur
-            const opacity = Math.max(0.7, 1 - (sheepCount - 5) * 0.05); // Gradually decrease opacity
-            
-            document.body.style.filter = `blur(${blurLevel}px)`;
-            document.body.style.opacity = opacity;
         }
 
         function createSheep() {
