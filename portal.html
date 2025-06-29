@@ -345,6 +345,7 @@
     <!-- Main Content -->
     <div class="main-content">
         <h1 class="horror-title">DAS PORTAL ZUR LEERE</h1>
+        <div></div>
         <div class="nightmare-portal">
             <img src="img/portal.gif" alt="Nightmare Portal" class="portal-gif" onclick="enterVoid()">
         </div>
@@ -461,7 +462,7 @@
                 const voidContent = document.getElementById('voidContent');
                 const trapped = document.createElement('div');
                 trapped.className = 'void-phrase';
-                trapped.textContent = 'Du solltest nicht hierher geschaut haben... Es gibt kein Zurück.';
+                trapped.textContent = 'Es gibt kein Zurück';
                 trapped.style.color = 'var(--nightmare-red)';
                 trapped.style.fontSize = '2.5rem';
                 voidContent.appendChild(trapped);
