@@ -1,0 +1,720 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Uhrzeit des Grauens</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Creepster&family=Nosifer&display=swap');
+        
+        :root {
+            --nightmare-red: #ff0000;
+            --blood-red: #8b0000;
+            --shadow-black: #0a0a0a;
+            --evil-purple: #4b0082;
+            --ghost-white: #f8f8ff;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Creepster', cursive;
+            background: var(--shadow-black);
+            overflow-x: hidden;
+            position: relative;
+            min-height: 100vh;
+        }
+
+        /* Video Background with Horror Effects */
+        .video-background {
+            position: fixed;
+            top: -10%;
+            left: -10%;
+            width: 120%;
+            height: 120%;
+            z-index: -10;
+            background: linear-gradient(45deg, #0a0a0a, #8b0000, #0a0a0a);
+            background-size: 400% 400%;
+            animation: videoDistortion 8s ease-in-out infinite;
+        }
+
+        @keyframes videoDistortion {
+            0%, 100% { 
+                background-position: 0% 50%;
+            }
+            25% { 
+                background-position: 100% 50%;
+            }
+            50% { 
+                background-position: 50% 100%;
+            }
+            75% { 
+                background-position: 50% 0%;
+            }
+        }
+
+        .horror-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: 
+                radial-gradient(circle at 30% 70%, rgba(139, 0, 0, 0.4) 0%, transparent 50%),
+                radial-gradient(circle at 70% 30%, rgba(75, 0, 130, 0.3) 0%, transparent 50%),
+                linear-gradient(45deg, 
+                    rgba(10, 10, 10, 0.8) 0%, 
+                    rgba(139, 0, 0, 0.6) 50%, 
+                    rgba(10, 10, 10, 0.9) 100%);
+            z-index: -5;
+            animation: overlayPulse 6s ease-in-out infinite;
+        }
+
+        @keyframes overlayPulse {
+            0%, 100% { opacity: 0.8; }
+            50% { opacity: 1; }
+        }
+
+        /* Main Content */
+        .main-content {
+            position: relative;
+            z-index: 1;
+            min-height: 100vh;
+            padding: 50px 20px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+        }
+
+        /* Title */
+        .horror-title {
+            font-family: 'Nosifer', cursive;
+            font-size: 3.5rem;
+            color: var(--nightmare-red);
+            text-align: center;
+            margin-bottom: 40px;
+            text-shadow: 
+                0 0 20px var(--nightmare-red),
+                0 0 40px var(--nightmare-red);
+            animation: titleGlitch 3s ease-in-out infinite;
+        }
+
+        @keyframes titleGlitch {
+            0%, 90%, 100% { 
+                transform: translate(0);
+                text-shadow: 
+                    0 0 20px var(--nightmare-red),
+                    0 0 40px var(--nightmare-red);
+            }
+            5% { 
+                transform: translate(-3px, 3px);
+                text-shadow: 
+                    0 0 30px var(--nightmare-red),
+                    3px 3px 0 var(--evil-purple);
+            }
+            10% { 
+                transform: translate(3px, -3px);
+                text-shadow: 
+                    0 0 25px var(--nightmare-red),
+                    -3px -3px 0 var(--blood-red);
+            }
+        }
+
+        /* Clock Game */
+        .clock-arena {
+            position: relative;
+            width: 100%;
+            max-width: 600px;
+            height: 400px;
+            background: 
+                radial-gradient(circle at center, var(--shadow-black) 0%, var(--blood-red) 100%);
+            border-radius: 15px;
+            margin: 30px auto;
+            overflow: hidden;
+            border: 3px solid var(--nightmare-red);
+            box-shadow: 
+                0 0 30px rgba(255, 0, 0, 0.5),
+                inset 0 0 30px rgba(0, 0, 0, 0.8);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .nightmare-clock {
+            position: relative;
+            width: 250px;
+            height: 100px;
+            background: rgba(0, 0, 0, 0.9);
+            border: 3px solid var(--nightmare-red);
+            border-radius: 10px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            box-shadow: 
+                0 0 30px rgba(255, 0, 0, 0.6),
+                inset 0 0 20px rgba(255, 0, 0, 0.3);
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .nightmare-clock:hover {
+            transform: scale(1.05);
+            box-shadow: 
+                0 0 40px rgba(255, 0, 0, 0.8),
+                inset 0 0 30px rgba(255, 0, 0, 0.5);
+        }
+
+        .clock-display {
+            font-family: 'Courier New', monospace;
+            font-size: 3rem;
+            font-weight: bold;
+            color: var(--nightmare-red);
+            text-shadow: 
+                0 0 20px var(--nightmare-red),
+                0 0 40px var(--nightmare-red);
+            letter-spacing: 3px;
+            animation: clockGlitch 4s ease-in-out infinite;
+        }
+
+        @keyframes clockGlitch {
+            0%, 85%, 100% { 
+                transform: translate(0);
+                text-shadow: 
+                    0 0 20px var(--nightmare-red),
+                    0 0 40px var(--nightmare-red);
+                color: var(--nightmare-red);
+            }
+            5% { 
+                transform: translate(-2px, 2px);
+                text-shadow: 
+                    0 0 30px var(--nightmare-red),
+                    2px 2px 0 var(--evil-purple);
+                color: #ff3333;
+            }
+            10% { 
+                transform: translate(2px, -2px);
+                text-shadow: 
+                    0 0 25px var(--nightmare-red),
+                    -2px -2px 0 var(--blood-red);
+                color: #ff0066;
+            }
+            15% { 
+                transform: translate(-1px, 1px);
+                text-shadow: 
+                    0 0 35px var(--nightmare-red),
+                    1px 1px 0 var(--ghost-white);
+                color: var(--nightmare-red);
+            }
+        }
+
+        .clock-info {
+            text-align: center;
+            margin: 20px 0;
+            color: white;
+            font-size: 1.1rem;
+            text-shadow: 0 0 10px var(--nightmare-red);
+        }
+
+        .ghost-times {
+            color: var(--nightmare-red);
+            font-weight: bold;
+            text-shadow: 0 0 15px var(--nightmare-red);
+        }
+
+        .clock-stats {
+            display: flex;
+            justify-content: space-around;
+            margin: 20px 0;
+            color: white;
+            text-shadow: 0 0 10px var(--nightmare-red);
+            max-width: 600px;
+            width: 100%;
+        }
+
+        .clock-stat {
+            text-align: center;
+        }
+
+        .clock-stat-value {
+            font-size: 1.5rem;
+            color: var(--nightmare-red);
+            font-weight: bold;
+        }
+
+        /* Jump Scare Effects */
+        .jump-scare-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(255, 0, 0, 0.9);
+            display: none;
+            justify-content: center;
+            align-items: center;
+            z-index: 9999;
+            animation: jumpScareFlash 0.5s ease-in-out;
+        }
+
+        .jump-scare-overlay.active {
+            display: flex;
+        }
+
+        @keyframes jumpScareFlash {
+            0% { opacity: 0; transform: scale(0.5); }
+            50% { opacity: 1; transform: scale(1.2); }
+            100% { opacity: 1; transform: scale(1); }
+        }
+
+        .jump-scare-text {
+            font-family: 'Nosifer', cursive;
+            font-size: 4rem;
+            color: white;
+            text-shadow: 
+                0 0 30px var(--nightmare-red),
+                0 0 60px var(--nightmare-red);
+            text-align: center;
+            animation: jumpScareShake 0.1s ease-in-out infinite;
+        }
+
+        @keyframes jumpScareShake {
+            0%, 100% { transform: translate(0); }
+            25% { transform: translate(-5px, 5px) rotate(-1deg); }
+            50% { transform: translate(5px, -5px) rotate(1deg); }
+            75% { transform: translate(-3px, -3px) rotate(-0.5deg); }
+        }
+
+        /* Portal Redirect Screen */
+        .portal-redirect {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.95);
+            display: none;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            z-index: 10000;
+            text-align: center;
+        }
+
+        .portal-redirect.active {
+            display: flex;
+        }
+
+        .portal-redirect-title {
+            font-family: 'Nosifer', cursive;
+            font-size: 3rem;
+            color: var(--nightmare-red);
+            text-shadow: 
+                0 0 20px var(--nightmare-red),
+                0 0 40px var(--nightmare-red);
+            margin-bottom: 30px;
+            animation: titleGlitch 2s ease-in-out infinite;
+        }
+
+        .portal-redirect-text {
+            font-size: 1.5rem;
+            color: white;
+            margin-bottom: 40px;
+            text-shadow: 0 0 10px var(--nightmare-red);
+            line-height: 1.6;
+        }
+
+        .portal-btn {
+            background: linear-gradient(45deg, var(--blood-red), var(--nightmare-red), var(--evil-purple));
+            background-size: 200% 200%;
+            border: none;
+            padding: 20px 40px;
+            font-size: 1.5rem;
+            color: white;
+            border-radius: 50px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            font-weight: bold;
+            font-family: 'Creepster', cursive;
+            box-shadow: 0 8px 25px rgba(255, 0, 0, 0.4);
+            animation: portalButtonGlow 3s ease infinite;
+            text-decoration: none;
+            display: inline-block;
+        }
+
+        @keyframes portalButtonGlow {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+
+        .portal-btn:hover {
+            transform: scale(1.1) translateY(-3px);
+            box-shadow: 0 15px 40px rgba(255, 0, 0, 0.6);
+        }
+
+        /* Screen Distortion */
+        .distortion-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 9997;
+            background: 
+                repeating-linear-gradient(
+                    0deg,
+                    transparent,
+                    transparent 2px,
+                    rgba(255, 0, 0, 0.03) 2px,
+                    rgba(255, 0, 0, 0.03) 4px
+                );
+            animation: scanlines 0.1s linear infinite;
+        }
+
+        @keyframes scanlines {
+            0% { transform: translateY(0); }
+            100% { transform: translateY(4px); }
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .main-content {
+                padding: 20px 15px;
+            }
+            
+            .horror-title {
+                font-size: 2.5rem;
+            }
+            
+            .clock-arena {
+                height: 250px;
+                max-width: 90%;
+            }
+            
+            .clock-display {
+                font-size: 2rem;
+            }
+
+            .nightmare-clock {
+                width: 200px;
+                height: 80px;
+            }
+
+            .portal-redirect-title {
+                font-size: 2rem;
+            }
+
+            .portal-redirect-text {
+                font-size: 1.2rem;
+                padding: 0 20px;
+            }
+
+            .clock-stats {
+                flex-direction: column;
+                gap: 10px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Jump Scare Overlay -->
+    <div class="jump-scare-overlay" id="jumpScareOverlay">
+        <div class="jump-scare-text" id="jumpScareText">FALSCHE ZEIT!</div>
+    </div>
+
+    <!-- Portal Redirect Screen -->
+    <div class="portal-redirect" id="portalRedirect">
+        <div class="portal-redirect-title">ZU VIELE FEHLER!</div>
+        <div class="portal-redirect-text">
+            Du hast 3 Jump Scares ausgelöst...<br>
+            Die Geister sind wütend!<br>
+            Du wirst zum Portal verbannt!
+        </div>
+        <a href="portal.html" class="portal-btn">ZUM PORTAL</a>
+    </div>
+
+    <!-- Screen Distortion -->
+    <div class="distortion-overlay"></div>
+
+    <!-- Video Background -->
+    <div class="video-background"></div>
+    <div class="horror-overlay"></div>
+
+    <!-- Main Content -->
+    <div class="main-content">
+        <h1 class="horror-title">UHRZEIT DES GRAUENS</h1>
+        <div class="clock-info">
+            Klicke die Uhr zur <span class="ghost-times">Geisterstunde</span>...
+            <br>
+            Zielzeiten: <span class="ghost-times">3:33, 12:00, 6:06, 13:13, 0:00, 11:11, 4:44</span>
+            <br>
+            <small style="color: #cccccc;">💡 Tipp: Die richtige Zeit erscheint häufiger!</small>
+        </div>
+        <div class="clock-arena">
+            <div class="nightmare-clock" onclick="checkGhostTime()">
+                <div class="clock-display" id="nightmareClock">00:00</div>
+            </div>
+        </div>
+        <div class="clock-stats">
+            <div class="clock-stat">
+                <div>Richtige Zeiten</div>
+                <div class="clock-stat-value" id="correctTimes">0</div>
+            </div>
+            <div class="clock-stat">
+                <div>Jump Scares</div>
+                <div class="clock-stat-value" id="jumpScares">0</div>
+            </div>
+            <div class="clock-stat">
+                <div>Geisterstunde</div>
+                <div class="clock-stat-value" id="currentGhostTime">3:33</div>
+            </div>
+        </div>
+        <div style="text-align: center; color: white; font-size: 1.2rem; margin-top: 20px; text-shadow: 0 0 10px var(--nightmare-red);">
+            Die Zeit vergeht... aber wartest du auf den richtigen Moment? ⏰👻
+        </div>
+    </div>
+
+    <script>
+        // Clock game variables
+        let clockActive = false;
+        let currentTime = '';
+        let targetGhostTime = '3:33';
+        let correctClicks = 0;
+        let jumpScareCount = 0;
+        let clockInterval = null;
+        let currentGhostIndex = 0;
+        
+        const ghostTimes = ['3:33', '12:00', '6:06', '13:13', '0:00', '11:11', '4:44'];
+        const jumpScareMessages = [
+            'FALSCHE ZEIT!',
+            'ZU FRÜH!',
+            'ZU SPÄT!',
+            'DIE GEISTER LACHEN!',
+            'VERSUCHE ES NOCHMAL!',
+            'ZEIT LÄUFT AB!',
+            'NICHT DIESE STUNDE!'
+        ];
+
+        // Start Clock Game
+        function startClockGame() {
+            if (clockActive) return;
+            
+            clockActive = true;
+            currentGhostIndex = Math.floor(Math.random() * ghostTimes.length);
+            targetGhostTime = ghostTimes[currentGhostIndex];
+            
+            document.getElementById('currentGhostTime').textContent = targetGhostTime;
+            
+            startClockGame();
+            clockInterval = setInterval(updateNightmareClock, 800 + Math.random() * 1500);
+        }
+
+        function stopClockGame() {
+            clockActive = false;
+            if (clockInterval) {
+                clearInterval(clockInterval);
+                clockInterval = null;
+            }
+        }
+
+        function updateNightmareClock() {
+            if (!clockActive) return;
+            
+            let hours, minutes;
+            let isTargetTime = false;
+            
+            // 35% Chance für die richtige Geisterstunde
+            if (Math.random() < 0.35) {
+                const targetParts = targetGhostTime.split(':');
+                hours = parseInt(targetParts[0]);
+                minutes = parseInt(targetParts[1]);
+                isTargetTime = true;
+            }
+            // 25% Chance für eine andere Geisterstunde (als Ablenkung)
+            else if (Math.random() < 0.25) {
+                const otherGhostTime = ghostTimes[Math.floor(Math.random() * ghostTimes.length)];
+                const otherParts = otherGhostTime.split(':');
+                hours = parseInt(otherParts[0]);
+                minutes = parseInt(otherParts[1]);
+            }
+            // 40% Chance für komplett zufällige Zeit
+            else {
+                hours = Math.floor(Math.random() * 24);
+                minutes = Math.floor(Math.random() * 60);
+                
+                // Nur 5% Chance für unmögliche Zeiten (reduziert von 15%)
+                if (Math.random() < 0.05) {
+                    if (Math.random() < 0.5) {
+                        minutes = Math.floor(Math.random() * 99); // Impossible minutes
+                    } else {
+                        hours = Math.floor(Math.random() * 30); // Impossible hours
+                    }
+                }
+            }
+            
+            // Format - KEINE Glitch-Charaktere wenn es die richtige Zeit ist!
+            let hoursStr = hours.toString().padStart(2, '0');
+            let minutesStr = minutes.toString().padStart(2, '0');
+            
+            // Nur Glitches hinzufügen wenn es NICHT die Zielzeit ist
+            if (!isTargetTime && Math.random() < 0.05) {
+                const glitchChars = ['█', '▓', '▒', '░', '#', '@', '%'];
+                const randomGlitch = glitchChars[Math.floor(Math.random() * glitchChars.length)];
+                
+                if (Math.random() < 0.5) {
+                    hoursStr = hoursStr.replace(hoursStr[Math.floor(Math.random() * 2)], randomGlitch);
+                } else {
+                    minutesStr = minutesStr.replace(minutesStr[Math.floor(Math.random() * 2)], randomGlitch);
+                }
+            }
+            
+            currentTime = `${hoursStr}:${minutesStr}`;
+            document.getElementById('nightmareClock').textContent = currentTime;
+            
+            // Reduzierte Farbglitches (10% statt 20%) - aber nicht bei Zielzeit
+            const clockDisplay = document.getElementById('nightmareClock');
+            if (!isTargetTime && Math.random() < 0.1) {
+                const colors = ['#ff0000', '#ff3333', '#ff6666', '#cc0000', '#990000', '#ffffff'];
+                clockDisplay.style.color = colors[Math.floor(Math.random() * colors.length)];
+                
+                setTimeout(() => {
+                    clockDisplay.style.color = 'var(--nightmare-red)';
+                }, 200);
+            } else if (isTargetTime) {
+                // Zielzeit bekommt einen leicht anderen Glow
+                clockDisplay.style.color = '#ff3333';
+                clockDisplay.style.textShadow = '0 0 25px #ff3333, 0 0 45px #ff3333';
+                
+                setTimeout(() => {
+                    clockDisplay.style.color = 'var(--nightmare-red)';
+                    clockDisplay.style.textShadow = '0 0 20px var(--nightmare-red), 0 0 40px var(--nightmare-red)';
+                }, 300);
+            }
+        }
+
+        function checkGhostTime() {
+            if (!clockActive) return;
+            
+            // Direkter Vergleich ohne Glitch-Ersetzung (da Zielzeiten keine Glitches haben)
+            console.log('Aktuelle Zeit:', currentTime, 'Zielzeit:', targetGhostTime);
+            
+            if (currentTime === targetGhostTime) {
+                // Correct ghost time!
+                correctClicks++;
+                document.getElementById('correctTimes').textContent = correctClicks;
+                
+                // Success effects
+                triggerSuccessEffect();
+                
+                // Move to next ghost time
+                currentGhostIndex = (currentGhostIndex + 1) % ghostTimes.length;
+                targetGhostTime = ghostTimes[currentGhostIndex];
+                document.getElementById('currentGhostTime').textContent = targetGhostTime;
+                
+                console.log('✅ RICHTIG! Neue Zielzeit:', targetGhostTime);
+                
+            } else {
+                // Wrong time - JUMP SCARE!
+                console.log('❌ FALSCH!');
+                triggerJumpScare();
+            }
+        }
+
+        function triggerJumpScare() {
+            jumpScareCount++;
+            document.getElementById('jumpScares').textContent = jumpScareCount;
+            
+            const overlay = document.getElementById('jumpScareOverlay');
+            const text = document.getElementById('jumpScareText');
+            
+            // Random jump scare message
+            text.textContent = jumpScareMessages[Math.floor(Math.random() * jumpScareMessages.length)];
+            
+            overlay.classList.add('active');
+            
+            // Screen shake and horror effects
+            document.body.style.filter = 'blur(3px) contrast(3) saturate(2)';
+            document.body.style.transform = 'scale(1.02)';
+            
+            // Hide jump scare after delay
+            setTimeout(() => {
+                overlay.classList.remove('active');
+                document.body.style.filter = '';
+                document.body.style.transform = '';
+            }, 1500);
+
+            // Check if 3 jump scares reached
+            if (jumpScareCount >= 3) {
+                setTimeout(() => {
+                    redirectToPortal();
+                }, 2000);
+            }
+        }
+
+        function triggerSuccessEffect() {
+            // Success glow effect
+            const clockArena = document.querySelector('.clock-arena');
+            const originalBoxShadow = clockArena.style.boxShadow;
+            
+            clockArena.style.boxShadow = `
+                0 0 50px rgba(0, 255, 0, 0.8),
+                0 0 100px rgba(0, 255, 0, 0.6),
+                inset 0 0 30px rgba(0, 255, 0, 0.3)
+            `;
+            
+            // Clock success glow
+            const clock = document.querySelector('.nightmare-clock');
+            clock.style.borderColor = '#00ff00';
+            clock.style.boxShadow = '0 0 40px rgba(0, 255, 0, 0.8)';
+            
+            const clockDisplay = document.getElementById('nightmareClock');
+            clockDisplay.style.color = '#00ff00';
+            clockDisplay.style.textShadow = '0 0 30px #00ff00';
+            
+            // Reset effects after delay
+            setTimeout(() => {
+                clockArena.style.boxShadow = originalBoxShadow;
+                clock.style.borderColor = 'var(--nightmare-red)';
+                clock.style.boxShadow = '';
+                clockDisplay.style.color = 'var(--nightmare-red)';
+                clockDisplay.style.textShadow = '';
+            }, 2000);
+        }
+
+        function redirectToPortal() {
+            stopClockGame();
+            const redirect = document.getElementById('portalRedirect');
+            redirect.classList.add('active');
+            
+            // Add extra horror effects
+            document.body.style.filter = 'blur(2px) contrast(2)';
+            
+            // Auto-redirect after 5 seconds if user doesn't click
+            setTimeout(() => {
+                window.location.href = 'portal.html';
+            }, 5000);
+        }
+
+        // Initialize game when page loads
+        document.addEventListener('DOMContentLoaded', () => {
+            startClockGame();
+            
+            console.log('⏰ Uhrzeit des Grauens gestartet...');
+            console.log('👻 Warte auf die Geisterstunde...');
+        });
+
+        // Cleanup
+        window.addEventListener('beforeunload', () => {
+            stopClockGame();
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,438 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Schäfchen Zählen - Friedliches Spiel</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Fredoka+One:wght@400&family=Comic+Neue:wght@400;700&display=swap');
+        
+        :root {
+            --sky-blue: #87CEEB;
+            --grass-green: #90EE90;
+            --cloud-white: #FFFFFF;
+            --sun-yellow: #FFD700;
+            --sheep-cream: #FFF8DC;
+            --button-blue: #4682B4;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Comic Neue', cursive;
+            background: linear-gradient(to bottom, var(--sky-blue) 0%, var(--grass-green) 100%);
+            min-height: 100vh;
+            cursor: default;
+            position: relative;
+        }
+
+        /* Clouds Background */
+        .cloud {
+            position: fixed;
+            background: var(--cloud-white);
+            border-radius: 50px;
+            opacity: 0.8;
+            animation: cloudFloat 20s linear infinite;
+        }
+
+        .cloud:before,
+        .cloud:after {
+            content: '';
+            position: absolute;
+            background: var(--cloud-white);
+            border-radius: 50px;
+        }
+
+        .cloud1 {
+            width: 80px;
+            height: 30px;
+            top: 20%;
+            animation-duration: 25s;
+        }
+
+        .cloud1:before {
+            width: 40px;
+            height: 40px;
+            top: -20px;
+            left: 10px;
+        }
+
+        .cloud1:after {
+            width: 60px;
+            height: 30px;
+            top: -10px;
+            right: 10px;
+        }
+
+        .cloud2 {
+            width: 60px;
+            height: 25px;
+            top: 40%;
+            animation-duration: 30s;
+            animation-delay: -10s;
+        }
+
+        .cloud2:before {
+            width: 35px;
+            height: 35px;
+            top: -15px;
+            left: 5px;
+        }
+
+        .cloud2:after {
+            width: 45px;
+            height: 25px;
+            top: -8px;
+            right: 8px;
+        }
+
+        @keyframes cloudFloat {
+            0% {
+                left: -100px;
+            }
+            100% {
+                left: calc(100vw + 100px);
+            }
+        }
+
+        /* Sun */
+        .sun {
+            position: fixed;
+            top: 10%;
+            right: 15%;
+            width: 80px;
+            height: 80px;
+            background: var(--sun-yellow);
+            border-radius: 50%;
+            box-shadow: 0 0 30px rgba(255, 215, 0, 0.6);
+            animation: sunGlow 3s ease-in-out infinite alternate;
+        }
+
+        @keyframes sunGlow {
+            0% {
+                box-shadow: 0 0 30px rgba(255, 215, 0, 0.6);
+            }
+            100% {
+                box-shadow: 0 0 50px rgba(255, 215, 0, 0.8);
+            }
+        }
+
+        /* Main Content */
+        .main-content {
+            position: relative;
+            z-index: 1;
+            min-height: 100vh;
+            padding: 50px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+        }
+
+        /* Title */
+        .game-title {
+            font-family: 'Fredoka One', cursive;
+            font-size: 3.5rem;
+            color: var(--button-blue);
+            text-align: center;
+            margin-bottom: 40px;
+            text-shadow: 2px 2px 4px rgba(70, 130, 180, 0.3);
+        }
+
+        /* Sheep Counter */
+        .sheep-counter {
+            text-align: center;
+            padding: 20px;
+            background: rgba(255, 255, 255, 0.3);
+            border-radius: 20px;
+            backdrop-filter: blur(10px);
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+
+        .sheep-display {
+            font-size: 2.5rem;
+            color: var(--button-blue);
+            margin: 30px 0;
+            font-weight: bold;
+            text-shadow: 1px 1px 2px rgba(70, 130, 180, 0.3);
+        }
+
+        .sheep-btn {
+            background: linear-gradient(45deg, var(--button-blue), var(--sky-blue));
+            border: none;
+            padding: 20px 40px;
+            font-size: 1.5rem;
+            color: white;
+            border-radius: 50px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            font-weight: bold;
+            font-family: 'Comic Neue', cursive;
+            box-shadow: 0 8px 25px rgba(70, 130, 180, 0.3);
+        }
+
+        .sheep-btn:hover {
+            transform: scale(1.05) translateY(-2px);
+            box-shadow: 0 12px 35px rgba(70, 130, 180, 0.4);
+        }
+
+        .sheep-btn:active {
+            transform: scale(0.98) translateY(0px);
+        }
+
+        .meadow {
+            position: relative;
+            width: 100%;
+            max-width: 800px;
+            height: 300px;
+            background: var(--grass-green);
+            border-radius: 15px;
+            margin: 30px auto;
+            overflow: hidden;
+            border: 3px solid var(--button-blue);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+        }
+
+        /* Sheep */
+        .sheep {
+            position: absolute;
+            opacity: 0;
+            pointer-events: none;
+            z-index: 50;
+            animation: sheepAppear 0.5s ease-out forwards;
+        }
+
+        @keyframes sheepAppear {
+            0% {
+                opacity: 0;
+                transform: scale(0.5);
+            }
+            100% {
+                opacity: 1;
+                transform: scale(1);
+            }
+        }
+
+        .game-description {
+            color: var(--button-blue);
+            font-size: 1.2rem;
+            margin-top: 20px;
+            text-align: center;
+            font-weight: 600;
+        }
+
+        /* Grass decoration */
+        /* Removed grass decoration */
+
+        /* Flowers */
+        /* Removed flower decorations */
+
+        /* Score milestone effects */
+        .celebration {
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            font-size: 4rem;
+            z-index: 1000;
+            pointer-events: none;
+            animation: celebrate 2s ease-out forwards;
+        }
+
+        @keyframes celebrate {
+            0% {
+                opacity: 0;
+                transform: translate(-50%, -50%) scale(0.5);
+            }
+            50% {
+                opacity: 1;
+                transform: translate(-50%, -50%) scale(1.2);
+            }
+            100% {
+                opacity: 0;
+                transform: translate(-50%, -50%) scale(1);
+            }
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .main-content {
+                padding: 30px 20px;
+            }
+            
+            .game-title {
+                font-size: 2.5rem;
+            }
+            
+            .meadow {
+                height: 250px;
+            }
+            
+            .sheep-display {
+                font-size: 2rem;
+            }
+            
+            .sheep-btn {
+                padding: 15px 30px;
+                font-size: 1.2rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Clouds -->
+    <div class="cloud cloud1"></div>
+    <div class="cloud cloud2"></div>
+
+    <!-- Sun -->
+    <div class="sun"></div>
+
+    <!-- Main Content -->
+    <div class="main-content">
+        <h1 class="game-title">🐑 Schäfchen Zählen 🐑</h1>
+        <div class="sheep-counter">
+            <div class="sheep-display">Schäfchen gezählt: <span id="sheepCount">0</span></div>
+            <button class="sheep-btn" onclick="countSheep()">Schäfchen zählen</button>
+            <div class="meadow" id="meadow">
+            </div>
+            <div class="game-description">
+                Klicke den Button und sieh zu, wie die Schäfchen über das Feld laufen!
+            </div>
+        </div>
+    </div>
+
+    <script>
+        let sheepCount = 0;
+        
+        function countSheep() {
+            sheepCount++;
+            document.getElementById('sheepCount').textContent = sheepCount;
+            
+            createSheep();
+            
+            // Apply sleepy blur effect starting from 6th sheep
+            if (sheepCount >= 6) {
+                applySleepyEffect();
+            }
+            
+            // Redirect to menu after 10 sheep
+            if (sheepCount >= 10) {
+                setTimeout(() => {
+                    window.location.href = 'menu.html';
+                }, 2000); // Wait 2 seconds before redirect
+            }
+            
+            // Celebration every 10 sheep (but will redirect)
+            if (sheepCount % 10 === 0) {
+                showCelebration();
+            }
+        }
+
+        function applySleepyEffect() {
+            const blurLevel = (sheepCount - 5) * 0.5; // Gradually increase blur
+            const opacity = Math.max(0.7, 1 - (sheepCount - 5) * 0.05); // Gradually decrease opacity
+            
+            document.body.style.filter = `blur(${blurLevel}px)`;
+            document.body.style.opacity = opacity;
+        }
+
+        function createSheep() {
+            const meadow = document.getElementById('meadow');
+            const sheep = document.createElement('div');
+            sheep.className = 'sheep';
+            
+            // Create sheep image
+            const sheepImg = document.createElement('img');
+            sheepImg.src = 'img/schaf.png';
+            sheepImg.alt = 'Schäfchen';
+            sheepImg.style.width = '60px';
+            sheepImg.style.height = 'auto';
+            
+            sheep.appendChild(sheepImg);
+            sheep.style.left = '-60px';
+            sheep.style.top = Math.random() * 60 + 20 + '%';
+            
+            meadow.appendChild(sheep);
+            
+            let position = -60;
+            const speed = 1 + Math.random() * 1;
+            const jumpHeight = 5 + Math.random() * 10;
+            
+            const animation = () => {
+                if (!sheep.parentNode) return;
+                
+                position += speed;
+                
+                // Gentle bouncing motion
+                const bounce = Math.sin(position * 0.02) * jumpHeight;
+                const scale = 0.9 + Math.sin(position * 0.03) * 0.1;
+                
+                sheep.style.left = position + 'px';
+                sheep.style.transform = `
+                    translateY(${bounce}px) 
+                    scale(${scale})
+                `;
+                
+                if (position > meadow.offsetWidth + 60) {
+                    sheep.remove();
+                    return;
+                }
+                
+                requestAnimationFrame(animation);
+            };
+            
+            requestAnimationFrame(animation);
+        }
+
+        function showCelebration() {
+            const celebration = document.createElement('div');
+            celebration.className = 'celebration';
+            
+            if (sheepCount >= 10) {
+                celebration.textContent = '😴 Du schläfst ein... 😴';
+            } else {
+                celebration.textContent = '🎉 Toll gemacht! 🎉';
+            }
+            
+            document.body.appendChild(celebration);
+            
+            setTimeout(() => {
+                celebration.remove();
+            }, 2000);
+        }
+
+        // Add some random clouds
+        function createCloud() {
+            const cloud = document.createElement('div');
+            cloud.className = 'cloud';
+            cloud.style.top = Math.random() * 30 + 10 + '%';
+            cloud.style.width = 60 + Math.random() * 40 + 'px';
+            cloud.style.height = 20 + Math.random() * 15 + 'px';
+            cloud.style.animationDuration = (20 + Math.random() * 15) + 's';
+            cloud.style.animationDelay = Math.random() * 10 + 's';
+            
+            document.body.appendChild(cloud);
+            
+            setTimeout(() => {
+                cloud.remove();
+            }, 35000);
+        }
+
+        // Create clouds periodically
+        setInterval(createCloud, 8000);
+
+        // Initialize
+        document.addEventListener('DOMContentLoaded', () => {
+            console.log('🐑 Willkommen beim friedlichen Schäfchen-Zählen!');
+            console.log('🌱 Viel Spaß beim Entspannen!');
+        });
+    </script>
+</body>
+</html>

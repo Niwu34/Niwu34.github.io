@@ -1,0 +1,585 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ALBTRÄUME - Es gibt kein Entkommen</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Creepster&family=Nosifer&display=swap');
+        
+        :root {
+            --nightmare-red: #ff0000;
+            --blood-red: #8b0000;
+            --shadow-black: #0a0a0a;
+            --evil-purple: #4b0082;
+            --ghost-white: #f8f8ff;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Creepster', cursive;
+            background: var(--shadow-black);
+            overflow-x: hidden;
+            cursor: none;
+            position: relative;
+            min-height: 100vh;
+        }
+
+        /* Video Background with Horror Effects */
+        .video-background {
+            position: fixed;
+            top: -10%;
+            left: -10%;
+            width: 120%;
+            height: 120%;
+            z-index: -10;
+            object-fit: cover;
+            opacity: 0.6;
+            filter: contrast(1.5) saturate(0.8) hue-rotate(180deg);
+            animation: videoDistortion 8s ease-in-out infinite;
+        }
+
+        @keyframes videoDistortion {
+            0%, 100% { 
+                filter: contrast(1.5) saturate(0.8) hue-rotate(180deg) blur(0px);
+                transform: scale(1) rotate(0deg);
+            }
+            25% { 
+                filter: contrast(2) saturate(0.5) hue-rotate(200deg) blur(2px);
+                transform: scale(1.02) rotate(0.5deg);
+            }
+            50% { 
+                filter: contrast(1.8) saturate(0.3) hue-rotate(160deg) blur(1px);
+                transform: scale(0.98) rotate(-0.5deg);
+            }
+            75% { 
+                filter: contrast(2.2) saturate(0.6) hue-rotate(220deg) blur(3px);
+                transform: scale(1.01) rotate(0.3deg);
+            }
+        }
+
+        .horror-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: 
+                radial-gradient(circle at 30% 70%, rgba(139, 0, 0, 0.4) 0%, transparent 50%),
+                radial-gradient(circle at 70% 30%, rgba(75, 0, 130, 0.3) 0%, transparent 50%),
+                linear-gradient(45deg, 
+                    rgba(10, 10, 10, 0.8) 0%, 
+                    rgba(139, 0, 0, 0.6) 50%, 
+                    rgba(10, 10, 10, 0.9) 100%);
+            z-index: -5;
+            animation: overlayPulse 6s ease-in-out infinite;
+        }
+
+        @keyframes overlayPulse {
+            0%, 100% { opacity: 0.8; }
+            50% { opacity: 1; }
+        }
+
+        /* Custom Horror Cursor */
+        .cursor {
+            width: 30px;
+            height: 30px;
+            border: 3px solid var(--nightmare-red);
+            border-radius: 50%;
+            position: fixed;
+            pointer-events: none;
+            z-index: 9999;
+            transition: all 0.1s ease;
+            box-shadow: 
+                0 0 20px var(--nightmare-red),
+                inset 0 0 10px var(--nightmare-red);
+            animation: cursorPulse 2s ease-in-out infinite;
+        }
+
+        @keyframes cursorPulse {
+            0%, 100% { 
+                transform: scale(1);
+                box-shadow: 
+                    0 0 20px var(--nightmare-red),
+                    inset 0 0 10px var(--nightmare-red);
+            }
+            50% { 
+                transform: scale(1.3);
+                box-shadow: 
+                    0 0 40px var(--nightmare-red),
+                    inset 0 0 20px var(--nightmare-red);
+            }
+        }
+
+        /* Random Moving Eyes - REMOVED */
+        /* Spiders - REMOVED */
+
+        /* Main Content */
+        .main-content {
+            position: relative;
+            z-index: 1;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 50px 20px;
+        }
+
+        /* Title */
+        .horror-title {
+            font-family: 'Creepster', cursive;
+            font-size: 3.5rem;
+            color: var(--nightmare-red);
+            text-align: center;
+            margin-bottom: 20px;
+            text-shadow: 
+                0 0 20px var(--nightmare-red),
+                0 0 40px var(--nightmare-red);
+            animation: titleGlitch 3s ease-in-out infinite;
+        }
+
+        @keyframes titleGlitch {
+            0%, 90%, 100% { 
+                transform: translate(0);
+                text-shadow: 
+                    0 0 20px var(--nightmare-red),
+                    0 0 40px var(--nightmare-red);
+            }
+            5% { 
+                transform: translate(-3px, 3px);
+                text-shadow: 
+                    0 0 30px var(--nightmare-red),
+                    3px 3px 0 var(--evil-purple);
+            }
+            10% { 
+                transform: translate(3px, -3px);
+                text-shadow: 
+                    0 0 25px var(--nightmare-red),
+                    -3px -3px 0 var(--blood-red);
+            }
+        }
+
+        .horror-subtitle {
+            font-size: 1.5rem;
+            color: var(--ghost-white);
+            text-align: center;
+            margin-bottom: 60px;
+            text-shadow: 0 0 20px var(--nightmare-red);
+            opacity: 0.9;
+        }
+
+        /* Game Cards Container */
+        .games-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 40px;
+            max-width: 800px;
+            width: 100%;
+        }
+
+        /* Game Card */
+        .game-card {
+            background: rgba(139, 0, 0, 0.3);
+            border-radius: 15px;
+            padding: 40px 30px;
+            text-align: center;
+            backdrop-filter: blur(10px);
+            border: 2px solid var(--nightmare-red);
+            box-shadow: 
+                0 0 30px rgba(255, 0, 0, 0.3),
+                inset 0 0 20px rgba(0, 0, 0, 0.5);
+            transition: all 0.3s ease;
+            cursor: pointer;
+            position: relative;
+            overflow: hidden;
+            animation: cardPulse 4s ease-in-out infinite;
+        }
+
+        @keyframes cardPulse {
+            0%, 100% { 
+                box-shadow: 
+                    0 0 30px rgba(255, 0, 0, 0.3),
+                    inset 0 0 20px rgba(0, 0, 0, 0.5);
+            }
+            50% { 
+                box-shadow: 
+                    0 0 50px rgba(255, 0, 0, 0.5),
+                    inset 0 0 30px rgba(0, 0, 0, 0.7);
+            }
+        }
+
+        .game-card:hover {
+            transform: translateY(-10px) scale(1.02);
+            box-shadow: 
+                0 0 60px rgba(255, 0, 0, 0.6),
+                inset 0 0 30px rgba(0, 0, 0, 0.7);
+            filter: brightness(1.2);
+        }
+
+        .game-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 0, 0, 0.2), transparent);
+            transition: left 0.5s ease;
+        }
+
+        .game-card:hover::before {
+            left: 100%;
+        }
+
+        /* Game Icons */
+        .game-icon {
+            font-size: 5rem;
+            margin-bottom: 20px;
+            display: block;
+            text-shadow: 0 0 20px var(--nightmare-red);
+            animation: iconFloat 3s ease-in-out infinite;
+        }
+
+        @keyframes iconFloat {
+            0%, 100% {
+                transform: translateY(0) rotate(0deg);
+            }
+            50% {
+                transform: translateY(-10px) rotate(5deg);
+            }
+        }
+
+        .clock-game .game-icon {
+            animation-delay: 0s;
+            color: var(--nightmare-red);
+        }
+
+        .chase-game .game-icon {
+            animation-delay: 1.5s;
+            color: var(--evil-purple);
+        }
+
+        /* Game Titles */
+        .game-title {
+            font-family: 'Nosifer', cursive;
+            font-size: 2rem;
+            margin-bottom: 15px;
+            color: var(--nightmare-red);
+            text-shadow: 
+                0 0 10px var(--nightmare-red),
+                0 0 20px var(--nightmare-red);
+            animation: titleFlicker 2s ease-in-out infinite;
+        }
+
+        @keyframes titleFlicker {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.8; }
+        }
+
+        /* Game Descriptions */
+        .game-description {
+            font-size: 1.1rem;
+            color: var(--ghost-white);
+            margin-bottom: 25px;
+            line-height: 1.5;
+            text-shadow: 0 0 10px var(--nightmare-red);
+            opacity: 0.9;
+        }
+
+        /* Play Buttons */
+        .play-btn {
+            background: linear-gradient(45deg, var(--blood-red), var(--nightmare-red), var(--evil-purple));
+            background-size: 200% 200%;
+            border: none;
+            padding: 15px 35px;
+            font-size: 1.3rem;
+            color: white;
+            border-radius: 50px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            font-weight: bold;
+            font-family: 'Creepster', cursive;
+            box-shadow: 0 8px 25px rgba(255, 0, 0, 0.4);
+            animation: buttonGlow 3s ease infinite;
+            border: 2px solid var(--nightmare-red);
+        }
+
+        @keyframes buttonGlow {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+
+        .play-btn:hover {
+            transform: scale(1.1) translateY(-3px);
+            box-shadow: 0 15px 40px rgba(255, 0, 0, 0.6);
+        }
+
+        .play-btn:active {
+            transform: scale(0.95) translateY(0px);
+        }
+
+        /* Spiders - REMOVED */
+
+        /* Screen Distortion */
+        .distortion-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 9997;
+            background: 
+                repeating-linear-gradient(
+                    0deg,
+                    transparent,
+                    transparent 2px,
+                    rgba(255, 0, 0, 0.03) 2px,
+                    rgba(255, 0, 0, 0.03) 4px
+                );
+            animation: scanlines 0.1s linear infinite;
+        }
+
+        @keyframes scanlines {
+            0% { transform: translateY(0); }
+            100% { transform: translateY(4px); }
+        }
+
+        /* Loading animation */
+        .loading {
+            pointer-events: none;
+            opacity: 0.5;
+            filter: blur(2px);
+        }
+
+        .loading::after {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 40px;
+            height: 40px;
+            margin: -20px 0 0 -20px;
+            border: 4px solid rgba(255, 0, 0, 0.3);
+            border-top-color: var(--nightmare-red);
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+        }
+
+        @keyframes spin {
+            to {
+                transform: rotate(360deg);
+            }
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .horror-title {
+                font-size: 2.5rem;
+            }
+            
+            .horror-subtitle {
+                font-size: 1.2rem;
+                margin-bottom: 40px;
+            }
+            
+            .games-container {
+                grid-template-columns: 1fr;
+                gap: 30px;
+            }
+            
+            .game-card {
+                padding: 30px 20px;
+            }
+            
+            .game-icon {
+                font-size: 4rem;
+            }
+            
+            .game-title {
+                font-size: 1.7rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Screen Distortion -->
+    <div class="distortion-overlay"></div>
+
+    <!-- Video Background -->
+    <video class="video-background" autoplay muted loop>
+        <source src="vid/hintergrund.mp4" type="video/mp4">
+    </video>
+    <div class="horror-overlay"></div>
+
+    <!-- Custom Cursor -->
+    <div class="cursor" id="cursor"></div>
+
+    <!-- Main Content -->
+    <div class="main-content">
+        <h1 class="horror-title">WÄHLE DEIN SCHICKSAL</h1>
+        <p class="horror-subtitle">Es gibt kein Zurück... nur vorwärts in die Dunkelheit</p>
+
+        <div class="games-container">
+            <!-- Clock Game Card -->
+            <div class="game-card clock-game" onclick="startGame('clock')">
+                <span class="game-icon">🕐</span>
+                <h2 class="game-title">ZEIT DES GRAUENS</h2>
+                <p class="game-description">
+                    Die Zeit verrinnt... Kannst du sie noch kontrollieren, bevor sie dich verschlingt?
+                </p>
+                <button class="play-btn" onclick="event.stopPropagation(); startGame('clock')">
+                    BETRETEN
+                </button>
+            </div>
+
+            <!-- Chase Game Card -->
+            <div class="game-card chase-game" onclick="startGame('chase')">
+                <span class="game-icon">👹</span>
+                <h2 class="game-title">JAGD IM SCHATTEN</h2>
+                <p class="game-description">
+                    Sie kommen näher... Renne um dein Leben in diesem alptraumhaften Verfolgungsspiel.
+                </p>
+                <button class="play-btn" onclick="event.stopPropagation(); startGame('chase')">
+                    FLIEHEN
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Variables
+        let mouseX = 0;
+        let mouseY = 0;
+        
+        // Cursor system with eye following
+        const cursor = document.getElementById('cursor');
+        
+        document.addEventListener('mousemove', (e) => {
+            mouseX = e.clientX;
+            mouseY = e.clientY;
+            
+            cursor.style.left = mouseX - 15 + 'px';
+            cursor.style.top = mouseY - 15 + 'px';
+        });
+
+        // Horror effect function
+        function triggerHorrorEffect() {
+            document.body.style.filter = 'blur(3px) contrast(2) hue-rotate(180deg)';
+            
+            setTimeout(() => {
+                document.body.style.filter = '';
+            }, 1000);
+        }
+
+        // Game selection function
+        function startGame(gameType) {
+            const card = document.querySelector(`.${gameType}-game`);
+            
+            // Add loading state
+            card.classList.add('loading');
+            
+            // Horror effect
+            triggerHorrorEffect();
+            
+            // Simulate loading time and redirect
+            setTimeout(() => {
+                switch(gameType) {
+                    case 'clock':
+                        window.location.href = 'verfolgung.html';
+                        break;
+                    case 'chase':
+                        window.location.href = 'verfolgung.html';
+                        break;
+                    default:
+                        console.log('Unbekanntes Spiel:', gameType);
+                }
+            }, 1500);
+        }
+
+        function triggerHorrorEffect() {
+            document.body.style.filter = 'blur(3px) contrast(2) hue-rotate(180deg)';
+            
+            setTimeout(() => {
+                document.body.style.filter = '';
+            }, 1000);
+        }
+
+        // Random horror effects
+        setInterval(() => {
+            if (Math.random() < 0.1) {
+                const effects = [
+                    () => {
+                        document.body.style.filter = 'blur(2px) hue-rotate(180deg)';
+                        setTimeout(() => { document.body.style.filter = ''; }, 300);
+                    },
+                    () => {
+                        const cards = document.querySelectorAll('.game-card');
+                        cards.forEach(card => {
+                            card.style.transform = 'scale(1.02) rotate(0.5deg)';
+                            setTimeout(() => { card.style.transform = ''; }, 200);
+                        });
+                    }
+                ];
+                
+                const randomEffect = effects[Math.floor(Math.random() * effects.length)];
+                randomEffect();
+            }
+        }, 5000);
+
+        // Click effects
+        document.addEventListener('click', () => {
+            // Simple click effect without eyes
+            document.body.style.filter = 'brightness(1.2)';
+            setTimeout(() => {
+                document.body.style.filter = '';
+            }, 100);
+        });
+
+        // Touch support
+        document.addEventListener('touchmove', (e) => {
+            e.preventDefault();
+            const touch = e.touches[0];
+            mouseX = touch.clientX;
+            mouseY = touch.clientY;
+            
+            cursor.style.left = mouseX - 15 + 'px';
+            cursor.style.top = mouseY - 15 + 'px';
+        });
+
+        document.addEventListener('touchstart', (e) => {
+            const touch = e.touches[0];
+            mouseX = touch.clientX;
+            mouseY = touch.clientY;
+        });
+
+        // Add keyboard navigation (no escape back to sheep!)
+        document.addEventListener('keydown', (e) => {
+            switch(e.key) {
+                case '1':
+                    startGame('clock');
+                    break;
+                case '2':
+                    startGame('chase');
+                    break;
+            }
+        });
+
+        // Initialize
+        document.addEventListener('DOMContentLoaded', () => {
+            console.log('💀 Willkommen in der Albtraumwelt...');
+            console.log('👁️ Es gibt kein Zurück...');
+            console.log('🎮 Wähle dein Schicksal...');
+        });
+    </script>
+</body>
+</html>
