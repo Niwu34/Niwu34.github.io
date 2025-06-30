@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>DAS PORTAL - Zeit des Grauens</title>
+    <title>Portal in die Leere</title>
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Creepster&family=Nosifer&display=swap');
         
@@ -133,8 +133,7 @@
             margin-bottom: 40px;
             margin-top: 60px;
             text-shadow: 
-                0 0 20px var(--nightmare-red),
-                0 0 40px var(--nightmare-red);
+                0 1 20px var(--nightmare-red),
             animation: titleGlitch 3s ease-in-out infinite;
         }
 
@@ -512,13 +511,6 @@
             const touch = e.touches[0];
             mouseX = touch.clientX;
             mouseY = touch.clientY;
-        });
-
-        // Initialize
-        document.addEventListener('DOMContentLoaded', () => {
-            console.log('🕳️ Willkommen am Portal zur Leere...');
-            console.log('👁️ Das Auge wartet...');
-            console.log('💀 Es gibt kein Entkommen...');
         });
     </script>
 </body>

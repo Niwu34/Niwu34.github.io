@@ -12,7 +12,6 @@
             --grass-green: #90EE90;
             --cloud-white: #FFFFFF;
             --sun-yellow: #FFD700;
-            --sheep-cream: #FFF8DC;
             --button-blue: #4682B4;
         }
 
@@ -91,12 +90,8 @@
         }
 
         @keyframes cloudFloat {
-            0% {
-                left: -100px;
-            }
-            100% {
-                left: calc(100vw + 100px);
-            }
+            0% { left: -100px; }
+            100% { left: calc(100vw + 100px); }
         }
 
         /* Sun */
@@ -113,12 +108,8 @@
         }
 
         @keyframes sunGlow {
-            0% {
-                box-shadow: 0 0 30px rgba(255, 215, 0, 0.6);
-            }
-            100% {
-                box-shadow: 0 0 50px rgba(255, 215, 0, 0.8);
-            }
+            0% { box-shadow: 0 0 30px rgba(255, 215, 0, 0.6); }
+            100% { box-shadow: 0 0 50px rgba(255, 215, 0, 0.8); }
         }
 
         /* Main Content */
@@ -228,12 +219,6 @@
             font-weight: 600;
         }
 
-        /* Grass decoration */
-        /* Removed grass decoration */
-
-        /* Flowers */
-        /* Removed flower decorations */
-
         /* Score milestone effects */
         .celebration {
             position: fixed;
@@ -321,10 +306,10 @@
             if (sheepCount >= 10) {
                 setTimeout(() => {
                     window.location.href = 'menu.html';
-                }, 2000); // Wait 2 seconds before redirect
+                }, 2000);
             }
             
-            // Celebration every 10 sheep (but will redirect)
+            // Celebration every 10 sheep
             if (sheepCount % 10 === 0) {
                 showCelebration();
             }
@@ -362,10 +347,7 @@
                 const scale = 0.9 + Math.sin(position * 0.03) * 0.1;
                 
                 sheep.style.left = position + 'px';
-                sheep.style.transform = `
-                    translateY(${bounce}px) 
-                    scale(${scale})
-                `;
+                sheep.style.transform = `translateY(${bounce}px) scale(${scale})`;
                 
                 if (position > meadow.offsetWidth + 60) {
                     sheep.remove();
@@ -414,12 +396,6 @@
 
         // Create clouds periodically
         setInterval(createCloud, 8000);
-
-        // Initialize
-        document.addEventListener('DOMContentLoaded', () => {
-            console.log('🐑 Willkommen beim friedlichen Schäfchen-Zählen!');
-            console.log('🌱 Viel Spaß beim Entspannen!');
-        });
     </script>
 </body>
 </html>

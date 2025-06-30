@@ -116,9 +116,6 @@
             }
         }
 
-        /* Random Moving Eyes - REMOVED */
-        /* Spiders - REMOVED */
-
         /* Main Content */
         .main-content {
             position: relative;
@@ -131,7 +128,7 @@
             padding: 50px 20px;
         }
 
-        /* Title */
+        /* Title - Very Subtle Glitch Effect */
         .horror-title {
             font-family: 'Creepster', cursive;
             font-size: 3.5rem;
@@ -139,29 +136,23 @@
             text-align: center;
             margin-bottom: 20px;
             text-shadow: 
-                0 0 20px var(--nightmare-red),
-                0 0 40px var(--nightmare-red);
-            animation: titleGlitch 3s ease-in-out infinite;
+                0 0 8px rgba(255, 0, 0, 0.6),
+                0 0 15px rgba(255, 0, 0, 0.3);
+            animation: titleGlitchMinimal 6s ease-in-out infinite;
         }
 
-        @keyframes titleGlitch {
-            0%, 90%, 100% { 
+        @keyframes titleGlitchMinimal {
+            0%, 98%, 100% { 
                 transform: translate(0);
                 text-shadow: 
-                    0 0 20px var(--nightmare-red),
-                    0 0 40px var(--nightmare-red);
+                    0 0 8px rgba(255, 0, 0, 0.6),
+                    0 0 15px rgba(255, 0, 0, 0.3);
             }
-            5% { 
-                transform: translate(-3px, 3px);
+            1% { 
+                transform: translate(-0.5px, 0.5px);
                 text-shadow: 
-                    0 0 30px var(--nightmare-red),
-                    3px 3px 0 var(--evil-purple);
-            }
-            10% { 
-                transform: translate(3px, -3px);
-                text-shadow: 
-                    0 0 25px var(--nightmare-red),
-                    -3px -3px 0 var(--blood-red);
+                    0 0 10px rgba(255, 0, 0, 0.7),
+                    0.5px 0.5px 0 rgba(75, 0, 130, 0.15);
             }
         }
 
@@ -273,7 +264,7 @@
             color: var(--nightmare-red);
             text-shadow: 
                 0 0 10px var(--nightmare-red),
-                0 0 20px var(--nightmare-red);
+                0 0 1px var(--nightmare-red);
             animation: titleFlicker 2s ease-in-out infinite;
         }
 
@@ -327,8 +318,6 @@
             transform: scale(0.95) translateY(0px);
         }
 
-        /* Spiders - REMOVED */
-
         /* Screen Distortion */
         .distortion-overlay {
             position: fixed;
@@ -376,9 +365,7 @@
         }
 
         @keyframes spin {
-            to {
-                transform: rotate(360deg);
-            }
+            to { transform: rotate(360deg); }
         }
 
         /* Responsive Design */
@@ -461,7 +448,7 @@
         let mouseX = 0;
         let mouseY = 0;
         
-        // Cursor system with eye following
+        // Cursor system
         const cursor = document.getElementById('cursor');
         
         document.addEventListener('mousemove', (e) => {
@@ -500,18 +487,8 @@
                     case 'chase':
                         window.location.href = 'verfolgung.html';
                         break;
-                    default:
-                        console.log('Unbekanntes Spiel:', gameType);
                 }
             }, 1500);
-        }
-
-        function triggerHorrorEffect() {
-            document.body.style.filter = 'blur(3px) contrast(2) hue-rotate(180deg)';
-            
-            setTimeout(() => {
-                document.body.style.filter = '';
-            }, 1000);
         }
 
         // Random horror effects
@@ -538,7 +515,6 @@
 
         // Click effects
         document.addEventListener('click', () => {
-            // Simple click effect without eyes
             document.body.style.filter = 'brightness(1.2)';
             setTimeout(() => {
                 document.body.style.filter = '';
@@ -562,7 +538,7 @@
             mouseY = touch.clientY;
         });
 
-        // Add keyboard navigation (no escape back to sheep!)
+        // Keyboard navigation
         document.addEventListener('keydown', (e) => {
             switch(e.key) {
                 case '1':
@@ -572,13 +548,6 @@
                     startGame('chase');
                     break;
             }
-        });
-
-        // Initialize
-        document.addEventListener('DOMContentLoaded', () => {
-            console.log('💀 Willkommen in der Albtraumwelt...');
-            console.log('👁️ Es gibt kein Zurück...');
-            console.log('🎮 Wähle dein Schicksal...');
         });
     </script>
 </body>

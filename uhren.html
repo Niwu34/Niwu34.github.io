@@ -37,23 +37,28 @@
             width: 120%;
             height: 120%;
             z-index: -10;
-            background: linear-gradient(45deg, #0a0a0a, #8b0000, #0a0a0a);
-            background-size: 400% 400%;
+            object-fit: cover;
+            opacity: 0.6;
+            filter: contrast(1.5) saturate(0.8) hue-rotate(180deg);
             animation: videoDistortion 8s ease-in-out infinite;
         }
 
         @keyframes videoDistortion {
             0%, 100% { 
-                background-position: 0% 50%;
+                filter: contrast(1.5) saturate(0.8) hue-rotate(180deg) blur(0px);
+                transform: scale(1) rotate(0deg);
             }
             25% { 
-                background-position: 100% 50%;
+                filter: contrast(2) saturate(0.5) hue-rotate(200deg) blur(2px);
+                transform: scale(1.02) rotate(0.5deg);
             }
             50% { 
-                background-position: 50% 100%;
+                filter: contrast(1.8) saturate(0.3) hue-rotate(160deg) blur(1px);
+                transform: scale(0.98) rotate(-0.5deg);
             }
             75% { 
-                background-position: 50% 0%;
+                filter: contrast(2.2) saturate(0.6) hue-rotate(220deg) blur(3px);
+                transform: scale(1.01) rotate(0.3deg);
             }
         }
 
@@ -91,37 +96,28 @@
             align-items: center;
         }
 
-        /* Title */
+        /* Title - Very Subtle Glitch Effect */
         .horror-title {
             font-family: 'Nosifer', cursive;
             font-size: 3.5rem;
             color: var(--nightmare-red);
             text-align: center;
             margin-bottom: 40px;
-            text-shadow: 
-                0 0 20px var(--nightmare-red),
-                0 0 40px var(--nightmare-red);
-            animation: titleGlitch 3s ease-in-out infinite;
+            animation: titleGlitchMinimal 6s ease-in-out infinite;
         }
 
-        @keyframes titleGlitch {
-            0%, 90%, 100% { 
+        @keyframes titleGlitchMinimal {
+            0%, 98%, 100% { 
                 transform: translate(0);
                 text-shadow: 
-                    0 0 20px var(--nightmare-red),
-                    0 0 40px var(--nightmare-red);
+                    0 0 8px rgba(255, 0, 0, 0.6),
+                    0 0 15px rgba(255, 0, 0, 0.3);
             }
-            5% { 
-                transform: translate(-3px, 3px);
+            1% { 
+                transform: translate(-0.5px, 0.5px);
                 text-shadow: 
-                    0 0 30px var(--nightmare-red),
-                    3px 3px 0 var(--evil-purple);
-            }
-            10% { 
-                transform: translate(3px, -3px);
-                text-shadow: 
-                    0 0 25px var(--nightmare-red),
-                    -3px -3px 0 var(--blood-red);
+                    0 0 10px rgba(255, 0, 0, 0.7),
+                    0.5px 0.5px 0 rgba(75, 0, 130, 0.15);
             }
         }
 
@@ -175,40 +171,26 @@
             font-weight: bold;
             color: var(--nightmare-red);
             text-shadow: 
-                0 0 20px var(--nightmare-red),
-                0 0 40px var(--nightmare-red);
+                0 0 8px rgba(255, 0, 0, 0.6),
+                0 0 15px rgba(255, 0, 0, 0.4);
             letter-spacing: 3px;
-            animation: clockGlitch 4s ease-in-out infinite;
+            animation: clockGlitchMinimal 5s ease-in-out infinite;
         }
 
-        @keyframes clockGlitch {
-            0%, 85%, 100% { 
+        @keyframes clockGlitchMinimal {
+            0%, 97%, 100% { 
                 transform: translate(0);
                 text-shadow: 
-                    0 0 20px var(--nightmare-red),
-                    0 0 40px var(--nightmare-red);
+                    0 0 8px rgba(255, 0, 0, 0.6),
+                    0 0 15px rgba(255, 0, 0, 0.4);
                 color: var(--nightmare-red);
             }
-            5% { 
-                transform: translate(-2px, 2px);
+            1.5% { 
+                transform: translate(-0.5px, 0.5px);
                 text-shadow: 
-                    0 0 30px var(--nightmare-red),
-                    2px 2px 0 var(--evil-purple);
-                color: #ff3333;
-            }
-            10% { 
-                transform: translate(2px, -2px);
-                text-shadow: 
-                    0 0 25px var(--nightmare-red),
-                    -2px -2px 0 var(--blood-red);
-                color: #ff0066;
-            }
-            15% { 
-                transform: translate(-1px, 1px);
-                text-shadow: 
-                    0 0 35px var(--nightmare-red),
-                    1px 1px 0 var(--ghost-white);
-                color: var(--nightmare-red);
+                    0 0 12px rgba(255, 0, 0, 0.8),
+                    0.5px 0.5px 0 rgba(75, 0, 130, 0.2);
+                color: #ff2222;
             }
         }
 
@@ -320,10 +302,6 @@
                 padding: 20px 15px;
             }
             
-            .horror-title {
-                font-size: 2.5rem;
-            }
-            
             .clock-arena {
                 height: 250px;
                 max-width: 90%;
@@ -338,39 +316,15 @@
                 height: 80px;
             }
 
-            .portal-redirect-title {
-                font-size: 2rem;
-            }
-
-            .portal-redirect-text {
-                font-size: 1.2rem;
-                padding: 0 20px;
-            }
-
             .clock-stats {
                 flex-direction: column;
                 gap: 10px;
             }
         }
-        
-        /* Video Background with Horror Effects */
-        .video-background {
-            position: fixed;
-            top: -10%;
-            left: -10%;
-            width: 120%;
-            height: 120%;
-            z-index: -10;
-            object-fit: cover;
-            opacity: 0.6;
-            filter: contrast(1.5) saturate(0.8) hue-rotate(180deg);
-            animation: videoDistortion 8s ease-in-out infinite;
-        }
-        
     </style>
 </head>
 <body>
-        <!-- Video Background -->
+    <!-- Video Background -->
     <video class="video-background" autoplay muted loop>
         <source src="vid/hintergrund.mp4" type="video/mp4">
     </video>
@@ -383,10 +337,6 @@
 
     <!-- Screen Distortion -->
     <div class="distortion-overlay"></div>
-
-    <!-- Video Background -->
-    <div class="video-background"></div>
-    <div class="horror-overlay"></div>
 
     <!-- Main Content -->
     <div class="main-content">
@@ -411,13 +361,9 @@
                 <div>Jump Scares</div>
                 <div class="clock-stat-value" id="jumpScares">0</div>
             </div>
-            <div class="clock-stat">
-                <div>Geisterstunde</div>
-                <div class="clock-stat-value" id="currentGhostTime">00:00</div>
-            </div>
         </div>
         <div style="text-align: center; color: white; font-size: 1.2rem; margin-top: 20px; text-shadow: 0 0 10px var(--nightmare-red);">
-            Warte auf Mitternacht... die Geister erwachen um 00:00!
+            <p>Entscheide dich 3 mal falsch</p>
         </div>
     </div>
 
@@ -425,7 +371,7 @@
         // Clock game variables
         let clockActive = false;
         let currentTime = '';
-        let targetGhostTime = '00:00'; // Nur eine Zielzeit!
+        let targetGhostTime = '00:00';
         let correctClicks = 0;
         let jumpScareCount = 0;
         let clockInterval = null;
@@ -445,9 +391,7 @@
             if (clockActive) return;
             
             clockActive = true;
-            targetGhostTime = '00:00'; // Immer die gleiche Zielzeit
-            
-            document.getElementById('currentGhostTime').textContent = targetGhostTime;
+            targetGhostTime = '00:00';
             
             // Erste Zeit sofort setzen
             updateNightmareClock();
@@ -469,21 +413,18 @@
             let hours, minutes;
             let isTargetTime = false;
             
-            // Einfache 60% Chance für 00:00 (Mitternacht)
+            // 40% Chance für 00:00 (Mitternacht)
             const random = Math.random();
-            console.log('🎲 Zufallszahl:', random);
             
             if (random < 0.4) {
                 // 40% Chance: Zeige 00:00
                 hours = 0;
                 minutes = 0;
                 isTargetTime = true;
-                console.log('🎯 ZIELZEIT generiert: 00:00');
             } else {
-                // 40% Chance: Zeige eine zufällige Zeit
+                // 60% Chance: Zeige eine zufällige Zeit
                 hours = Math.floor(Math.random() * 24);
                 minutes = Math.floor(Math.random() * 60);
-                console.log('🎲 Zufällige Zeit generiert:', hours + ':' + minutes);
             }
             
             // Immer saubere Formatierung
@@ -491,49 +432,33 @@
             let minutesStr = minutes.toString().padStart(2, '0');
             currentTime = hoursStr + ':' + minutesStr;
             
-            console.log('⏰ currentTime gesetzt auf:', currentTime);
-            console.log('🎯 targetGhostTime ist:', targetGhostTime);
-            console.log('✅ Ist Zielzeit?', isTargetTime);
-            console.log('🔍 Zeiten sind gleich?', currentTime === targetGhostTime);
-            
             // Anzeige aktualisieren
             document.getElementById('nightmareClock').textContent = currentTime;
             
             // Visueller Hinweis für Mitternacht
             const clockDisplay = document.getElementById('nightmareClock');
             if (isTargetTime) {
-                clockDisplay.style.color = '#00ff00'; // Grün für Mitternacht
+                clockDisplay.style.color = '#00ff00';
                 clockDisplay.style.textShadow = '0 0 25px #00ff00, 0 0 45px #00ff00';
-                console.log('💚 Mitternacht grün hervorgehoben!');
             } else {
                 clockDisplay.style.color = 'var(--nightmare-red)';
                 clockDisplay.style.textShadow = '0 0 20px var(--nightmare-red), 0 0 40px var(--nightmare-red)';
             }
-            
-            console.log('───────────────────────────────');
         }
 
         function checkGhostTime() {
             if (!clockActive) return;
-            
-            console.log('🔍 KLICK! Vergleiche:', currentTime, '===', targetGhostTime);
             
             if (currentTime === targetGhostTime) {
                 // Correct ghost time!
                 correctClicks++;
                 document.getElementById('correctTimes').textContent = correctClicks;
                 
-                console.log('🎉 TREFFER! Mitternacht erkannt! Score:', correctClicks);
-                
                 // Success effects
                 triggerSuccessEffect();
                 
-                // Zielzeit bleibt immer 00:00 - keine Änderung nötig
-                console.log('🎯 Zielzeit bleibt: 00:00');
-                
             } else {
                 // Wrong time - JUMP SCARE!
-                console.log('💥 FEHLSCHLAG! Falsche Zeit geklickt!');
                 triggerJumpScare();
             }
         }
@@ -561,10 +486,9 @@
                 document.body.style.transform = '';
             }, 1500);
 
-            // Check if 3 jump scares reached - direkte Weiterleitung
+            // Check if 3 jump scares reached
             if (jumpScareCount >= 3) {
                 setTimeout(() => {
-                    console.log('💀 3 Jump Scares erreicht - Weiterleitung zu portal.html');
                     window.location.href = 'portal.html';
                 }, 2000);
             }
@@ -603,9 +527,6 @@
         // Initialize game when page loads
         document.addEventListener('DOMContentLoaded', () => {
             startClockGame();
-            
-            console.log('⏰ Uhrzeit des Grauens gestartet...');
-            console.log('👻 Warte auf die Geisterstunde...');
         });
 
         // Cleanup
