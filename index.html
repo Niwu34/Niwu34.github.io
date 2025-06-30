@@ -13,6 +13,8 @@
             --cloud-white: #FFFFFF;
             --sun-yellow: #FFD700;
             --button-blue: #4682B4;
+            --happy-pink: #FF69B4;
+            --happy-orange: #FFA500;
         }
 
         * {
@@ -25,8 +27,39 @@
             font-family: 'Comic Neue', cursive;
             background: linear-gradient(to bottom, var(--sky-blue) 0%, var(--grass-green) 100%);
             min-height: 100vh;
-            cursor: default;
+            cursor: none;
             position: relative;
+        }
+
+        /* Yellow Horror Cursor */
+        .cursor {
+            width: 30px;
+            height: 30px;
+            border: 3px solid var(--sun-yellow);
+            border-radius: 50%;
+            position: fixed;
+            pointer-events: none;
+            z-index: 9999;
+            transition: all 0.1s ease;
+            box-shadow: 
+                0 0 20px var(--sun-yellow),
+                inset 0 0 10px var(--sun-yellow);
+            animation: yellowCursorPulse 2s ease-in-out infinite;
+        }
+
+        @keyframes yellowCursorPulse {
+            0%, 100% { 
+                transform: scale(1);
+                box-shadow: 
+                    0 0 20px var(--sun-yellow),
+                    inset 0 0 10px var(--sun-yellow);
+            }
+            50% { 
+                transform: scale(1.3);
+                box-shadow: 
+                    0 0 40px var(--sun-yellow),
+                    inset 0 0 20px var(--sun-yellow);
+            }
         }
 
         /* Clouds Background */
@@ -160,7 +193,7 @@
             font-size: 1.5rem;
             color: white;
             border-radius: 50px;
-            cursor: pointer;
+            cursor: none;
             transition: all 0.3s ease;
             text-transform: uppercase;
             letter-spacing: 2px;
@@ -272,6 +305,9 @@
     </style>
 </head>
 <body>
+    <!-- Custom Happy Cursor -->
+    <div class="cursor" id="cursor"></div>
+
     <!-- Clouds -->
     <div class="cloud cloud1"></div>
     <div class="cloud cloud2"></div>
@@ -295,6 +331,36 @@
 
     <script>
         let sheepCount = 0;
+        
+        // Cursor system
+        const cursor = document.getElementById('cursor');
+        let mouseX = 0;
+        let mouseY = 0;
+        
+        document.addEventListener('mousemove', (e) => {
+            mouseX = e.clientX;
+            mouseY = e.clientY;
+            
+            cursor.style.left = mouseX - 15 + 'px';
+            cursor.style.top = mouseY - 15 + 'px';
+        });
+        
+        // Touch support
+        document.addEventListener('touchmove', (e) => {
+            e.preventDefault();
+            const touch = e.touches[0];
+            mouseX = touch.clientX;
+            mouseY = touch.clientY;
+            
+            cursor.style.left = mouseX - 15 + 'px';
+            cursor.style.top = mouseY - 15 + 'px';
+        });
+
+        document.addEventListener('touchstart', (e) => {
+            const touch = e.touches[0];
+            mouseX = touch.clientX;
+            mouseY = touch.clientY;
+        });
         
         function countSheep() {
             sheepCount++;
