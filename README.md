@@ -1,6 +1,8 @@
-# 🌙 Traum - Interactive Dream Experience
+# 🌙 Traumspiel - Interactive Dream Experience
+
 
 Ein interaktives Web-Erlebnis, das verschiedene Traumzustände und Albtraum-Dimensionen erforscht. Entwickelt als Mediengestaltungs-Projekt zum Thema "Traum".
+# https://niwu34.github.io/
 
 ## 🎮 Überblick
 
@@ -113,6 +115,10 @@ Entwickelt als Mediengestaltungs-Projekt mit Fokus auf:
 ## 📄 Lizenz
 
 Entwickelt für Bildungszwecke im Rahmen des Mediengestaltung-Studiums.
+•	Schaf: https://christart.com/clipart/image/sleepy-sheep
+•	Creepy Auge: https://gifer.com/de/fyJb
+•	Hintergrund https://www.youtube.com/watch?v=WjZBOfNbRT0
+•	Portal: https://de.pinterest.com/pin/605874956152133656/
 
 ---
 
