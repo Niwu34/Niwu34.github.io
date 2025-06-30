@@ -85,9 +85,20 @@
             50% { opacity: 1; }
         }
 
-        /* Custom Horror Cursor - Hidden */
+        /* Custom Horror Cursor */
         .cursor {
-            display: none;
+            width: 30px;
+            height: 30px;
+            border: 3px solid var(--nightmare-red);
+            border-radius: 50%;
+            position: fixed;
+            pointer-events: none;
+            z-index: 9999;
+            transition: all 0.1s ease;
+            box-shadow: 
+                0 0 20px var(--nightmare-red),
+                inset 0 0 10px var(--nightmare-red);
+            animation: cursorPulse 2s ease-in-out infinite;
         }
 
         @keyframes cursorPulse {
@@ -177,6 +188,7 @@
             z-index: 100;
             pointer-events: none;
             animation: playerPulse 1s ease-in-out infinite;
+            transform: translate(-50%, -50%);
         }
 
         @keyframes playerPulse {
@@ -264,6 +276,7 @@
             color: white;
             border-radius: 50px;
             cursor: pointer;
+            cursor: none;
             transition: all 0.3s ease;
             text-transform: uppercase;
             letter-spacing: 2px;
@@ -340,6 +353,7 @@
             color: white;
             border-radius: 50px;
             cursor: pointer;
+            cursor: none;
             transition: all 0.3s ease;
             text-transform: uppercase;
             letter-spacing: 2px;
@@ -527,12 +541,15 @@
         let minSurvivalTime = 8; // Reduced from 10 to 8 seconds
         let countdownTimer = null;
         
-        // Cursor system - Disabled
+        // Cursor system
         const cursor = document.getElementById('cursor');
         
         document.addEventListener('mousemove', (e) => {
             mouseX = e.clientX;
             mouseY = e.clientY;
+            
+            cursor.style.left = mouseX - 15 + 'px';
+            cursor.style.top = mouseY - 15 + 'px';
             
             // Update player position in chase game
             if (chaseActive && gameStarted) {
@@ -556,6 +573,9 @@
             // Hide all screens
             document.getElementById('gameOverScreen').classList.remove('active');
             document.getElementById('successScreen').classList.remove('active');
+            
+            const cursor = document.getElementById('cursor');
+            cursor.classList.add('hunting');
             
             updatePlayerPosition();
             
@@ -584,6 +604,8 @@
 
         function stopChaseGame() {
             chaseActive = false;
+            const cursor = document.getElementById('cursor');
+            cursor.classList.remove('hunting');
             
             if (gameLoops.chase) clearInterval(gameLoops.chase);
             if (gameLoops.survival) clearInterval(gameLoops.survival);
@@ -756,6 +778,9 @@
             const touch = e.touches[0];
             mouseX = touch.clientX;
             mouseY = touch.clientY;
+            
+            cursor.style.left = mouseX - 15 + 'px';
+            cursor.style.top = mouseY - 15 + 'px';
             
             if (chaseActive && gameStarted) {
                 updatePlayerPosition();
