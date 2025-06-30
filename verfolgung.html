@@ -85,20 +85,9 @@
             50% { opacity: 1; }
         }
 
-        /* Custom Horror Cursor */
+        /* Custom Horror Cursor - Hidden */
         .cursor {
-            width: 30px;
-            height: 30px;
-            border: 3px solid var(--nightmare-red);
-            border-radius: 50%;
-            position: fixed;
-            pointer-events: none;
-            z-index: 9999;
-            transition: all 0.1s ease;
-            box-shadow: 
-                0 0 20px var(--nightmare-red),
-                inset 0 0 10px var(--nightmare-red);
-            animation: cursorPulse 2s ease-in-out infinite;
+            display: none;
         }
 
         @keyframes cursorPulse {
@@ -117,11 +106,7 @@
         }
 
         .cursor.hunting {
-            border-color: var(--ghost-white);
-            box-shadow: 
-                0 0 30px var(--ghost-white),
-                inset 0 0 15px var(--ghost-white);
-            animation: huntingPulse 0.5s ease-in-out infinite;
+            display: none;
         }
 
         @keyframes huntingPulse {
@@ -145,6 +130,9 @@
             text-align: center;
             margin-bottom: 40px;
             margin-top: 60px;
+            text-shadow: 
+                0 0 8px rgba(255, 0, 0, 0.6),
+                0 0 15px rgba(255, 0, 0, 0.3);
             animation: titleGlitchMinimal 6s ease-in-out infinite;
         }
 
@@ -198,22 +186,22 @@
 
         .nightmare-hunter {
             position: absolute;
-            width: 50px;
-            height: 50px;
+            width: 35px;
+            height: 35px;
             background: var(--nightmare-red);
             border-radius: 50%;
-            box-shadow: 0 0 20px var(--nightmare-red);
+            box-shadow: 0 0 15px var(--nightmare-red);
             animation: hunterPulse 0.8s ease-in-out infinite;
         }
 
         @keyframes hunterPulse {
             0%, 100% { 
                 transform: scale(1);
-                box-shadow: 0 0 20px var(--nightmare-red);
+                box-shadow: 0 0 15px var(--nightmare-red);
             }
             50% { 
-                transform: scale(1.3);
-                box-shadow: 0 0 40px var(--nightmare-red);
+                transform: scale(1.2);
+                box-shadow: 0 0 25px var(--nightmare-red);
             }
         }
 
@@ -252,6 +240,9 @@
             font-family: 'Nosifer', cursive;
             font-size: 2.5rem;
             color: var(--nightmare-red);
+            text-shadow: 
+                0 0 8px rgba(255, 0, 0, 0.6),
+                0 0 15px rgba(255, 0, 0, 0.3);
             margin-bottom: 30px;
             animation: titleGlitchMinimal 6s ease-in-out infinite;
         }
@@ -437,7 +428,7 @@
             color: white;
             font-size: 1.2rem;
             margin-top: 20px;
-            text-shadow: 0 0 3px var(--nightmare-red);
+            text-shadow: 0 0 10px var(--nightmare-red);
         }
 
         /* Responsive */
@@ -536,15 +527,12 @@
         let minSurvivalTime = 8; // Reduced from 10 to 8 seconds
         let countdownTimer = null;
         
-        // Cursor system
+        // Cursor system - Disabled
         const cursor = document.getElementById('cursor');
         
         document.addEventListener('mousemove', (e) => {
             mouseX = e.clientX;
             mouseY = e.clientY;
-            
-            cursor.style.left = mouseX - 15 + 'px';
-            cursor.style.top = mouseY - 15 + 'px';
             
             // Update player position in chase game
             if (chaseActive && gameStarted) {
@@ -568,9 +556,6 @@
             // Hide all screens
             document.getElementById('gameOverScreen').classList.remove('active');
             document.getElementById('successScreen').classList.remove('active');
-            
-            const cursor = document.getElementById('cursor');
-            cursor.classList.add('hunting');
             
             updatePlayerPosition();
             
@@ -599,8 +584,6 @@
 
         function stopChaseGame() {
             chaseActive = false;
-            const cursor = document.getElementById('cursor');
-            cursor.classList.remove('hunting');
             
             if (gameLoops.chase) clearInterval(gameLoops.chase);
             if (gameLoops.survival) clearInterval(gameLoops.survival);
@@ -693,7 +676,7 @@
                 hunter.element.style.top = hunter.y + '%';
             }
             
-            if (distance < 10) { // Increased collision distance from 8 to 10 for easier gameplay
+            if (distance < 6) { // Reduced collision distance from 10 to 6 for fairer gameplay
                 gameOver();
                 return;
             }
@@ -773,9 +756,6 @@
             const touch = e.touches[0];
             mouseX = touch.clientX;
             mouseY = touch.clientY;
-            
-            cursor.style.left = mouseX - 15 + 'px';
-            cursor.style.top = mouseY - 15 + 'px';
             
             if (chaseActive && gameStarted) {
                 updatePlayerPosition();
